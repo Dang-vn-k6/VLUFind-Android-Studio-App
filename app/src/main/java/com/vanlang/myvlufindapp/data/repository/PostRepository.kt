@@ -2,12 +2,16 @@ package com.vanlang.myvlufindapp.data.repository
 
 import androidx.lifecycle.LiveData
 import com.vanlang.myvlufindapp.data.local.PostDao
-import com.vanlang.myvlufindapp.data.local.SampleData
 import com.vanlang.myvlufindapp.data.model.Post
 import com.vanlang.myvlufindapp.data.model.PostStatus
 import com.vanlang.myvlufindapp.data.model.PostType
+import com.vanlang.myvlufindapp.data.remote.PostApi
+import com.vanlang.myvlufindapp.data.remote.toPost
 
-class PostRepository(private val postDao: PostDao) {
+class PostRepository(
+    private val postDao: PostDao,
+    private val postApi: PostApi
+) {
 
     val allPosts: LiveData<List<Post>> = postDao.getAllPosts()
 
@@ -25,9 +29,11 @@ class PostRepository(private val postDao: PostDao) {
 
     suspend fun updateStatus(id: Long, status: PostStatus) = postDao.updateStatus(id, status)
 
-    suspend fun seedIfEmpty() {
-        if (postDao.count() == 0) {
-            postDao.insertAll(SampleData.posts)
-        }
+    // Lấy dữ liệu từ Web API, rồi lưu vào Room làm bộ nhớ đệm.
+    // Nếu gọi API lỗi thì ném lỗi ra ngoài và KHÔNG xóa dữ liệu cũ trong máy.
+    suspend fun refreshPosts() {
+        val remotePosts = postApi.getPosts()
+        postDao.deleteAll()
+        postDao.insertAll(remotePosts.map { it.toPost() })
     }
 }
