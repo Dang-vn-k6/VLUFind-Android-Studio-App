@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vanlang.myvlufindapp.databinding.FragmentHomeBinding
+import android.widget.Toast
 
 class HomeFragment : Fragment() {
 
@@ -30,6 +31,9 @@ class HomeFragment : Fragment() {
         viewModel.posts.observe(viewLifecycleOwner) { list ->
             binding.textHome.text = "Có ${list.size} tin\n" +
                     list.joinToString("\n") { "• ${it.title}" }
+        }
+        viewModel.error.observe(viewLifecycleOwner) { message ->
+            message?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
         }
     }
 
