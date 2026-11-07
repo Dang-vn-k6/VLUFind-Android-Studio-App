@@ -5,4 +5,6 @@
     <string name="title_post">Đăng tin</string>
     <string name="title_messages">Tin nhắn</string>
     <string name="title_profile">Cá nhân</string>
+    <string name="empty_posts">Chưa có tin nào</string>
+    <string name="post_image_desc">Ảnh đồ vật</string>
 </resources>
