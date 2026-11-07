@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vanlang.myvlufindapp.databinding.FragmentHomeBinding
-import android.widget.Toast
 
 class HomeFragment : Fragment() {
 
@@ -27,11 +27,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        viewModel.posts.observe(viewLifecycleOwner) { list ->
-            binding.textHome.text = "Có ${list.size} tin\n" +
-                    list.joinToString("\n") { "• ${it.title}" }
+
+        val adapter = PostAdapter { post ->
+            Toast.makeText(requireContext(), post.title, Toast.LENGTH_SHORT).show()
         }
+        binding.recyclerPosts.adapter = adapter
+
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        viewModel.posts.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+            binding.textEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+        }
+
         viewModel.error.observe(viewLifecycleOwner) { message ->
             message?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
         }
@@ -39,6 +47,7 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.recyclerPosts.adapter = null
         _binding = null
     }
 }
