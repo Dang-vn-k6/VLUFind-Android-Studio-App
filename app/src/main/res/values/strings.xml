@@ -7,4 +7,11 @@
     <string name="title_profile">Cá nhân</string>
     <string name="empty_posts">Chưa có tin nào</string>
     <string name="post_image_desc">Ảnh đồ vật</string>
+    <string name="detail_location">Địa điểm: %1$s</string>
+    <string name="detail_author">Người đăng: %1$s</string>
+    <string name="detail_category">Loại đồ: %1$s</string>
+    <string name="detail_date">Đăng lúc: %1$s</string>
+    <string name="contact_button">Liên hệ</string>
+    <string name="back_button">Quay lại</string>
+    <string name="no_dialer">Không mở được ứng dụng gọi điện</string>
 </resources>

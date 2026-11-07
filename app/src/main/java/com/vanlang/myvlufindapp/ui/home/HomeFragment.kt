@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.vanlang.myvlufindapp.databinding.FragmentHomeBinding
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.vanlang.myvlufindapp.R
 
 class HomeFragment : Fragment() {
 
@@ -29,7 +32,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = PostAdapter { post ->
-            Toast.makeText(requireContext(), post.title, Toast.LENGTH_SHORT).show()
+            findNavController().navigate(
+                R.id.postDetailFragment,
+                bundleOf("postId" to post.id)
+            )
         }
         binding.recyclerPosts.adapter = adapter
 

@@ -34,4 +34,9 @@
         android:name="com.vanlang.myvlufindapp.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.vanlang.myvlufindapp.ui.detail.PostDetailFragment"
+        android:label="Chi tiết"
+        tools:layout="@layout/fragment_post_detail" />
 </navigation>
