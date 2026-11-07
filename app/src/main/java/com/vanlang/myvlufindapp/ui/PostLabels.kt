@@ -1,5 +1,6 @@
 package com.vanlang.myvlufindapp.ui
 
+import com.vanlang.myvlufindapp.data.model.ItemCategory
 import com.vanlang.myvlufindapp.data.model.PostStatus
 import com.vanlang.myvlufindapp.data.model.PostType
 
@@ -15,3 +16,11 @@ fun PostStatus.label(): String = when (this) {
     PostStatus.RETURNED -> "Đã trao trả"
 }
 
+fun ItemCategory.label(): String = when (this) {
+    ItemCategory.WALLET -> "Ví tiền"
+    ItemCategory.STUDENT_CARD -> "Thẻ sinh viên"
+    ItemCategory.KEYS -> "Chìa khóa"
+    ItemCategory.PHONE -> "Điện thoại"
+    ItemCategory.LAPTOP -> "Laptop"
+    ItemCategory.OTHER -> "Khác"
+}
